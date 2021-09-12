@@ -2,8 +2,22 @@
     background-color: brown;
     text-align: center;
     margin: 1px,1px,1px,1px;
+    border-image: auto;
+    border-image-width: auto;
 }
 .song{
     margin: auto;
     font-family: sans-serif;
+}
+#playlists{
+    background-color:cornflowerblue;
+    text-align: center;
+    margin: 1px,1px,1px,1px;
+}
+.image{
+    border-radius: 50%;
+    size: 10px;
+}
+.b{
+    background-color: darkgreen;
 }

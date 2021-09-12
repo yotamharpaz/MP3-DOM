@@ -6,10 +6,14 @@
  */
 
 
-function playSong(songId) {
+ function playSong(songId) {
+    let playedSong = document.getElementsByClassName("b")
+    if( playedSong.length > 0) playedSong[0].className = "a";
+    document.getElementById(songId).className = "b";
     
-    
+   
 }
+
 
 
 
@@ -18,20 +22,22 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = [`Title: ${title}`, `Album: ${album}`, `Artist: ${artist}`, `Duration: ${durationFormat(duration)}`, coverArt]
+    const children = [`Title: ${title}`, `Album: ${album}`, `Artist: ${artist}`, `Duration: ${durationFormat(duration)}`]
     const classes = ['song']
     const attrs = { onclick: `playSong(${id})` }
-    return createElement("div", children, classes, attrs)
+    let obj = createElement("div",children,classes,attrs);
+    obj.id=id;
+    return obj
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children = [`id: ${id}`, `name: ${name}`, `songs: ${songs}`]
+    const children = [`id: ${id}`, `name: ${name}`, `songs: ${songs}`,`duration:${durationFormat (playlistDuration(id))} `]
     const classes = []
     const attrs = {}
-    const ul = document.createElement('ul')
+    
 
     return createElement("div", children, classes, attrs)
 }
@@ -95,4 +101,13 @@ function durationFormat (secDuration) {
     const fomatedMin = minutes.toString().length === 1 ? "0" + minutes : minutes;
   
     return (fomatedMin + ":" + fomatedSec);
+  }
+  function playlistDuration(id) {
+    let duration = 0
+    const playlist =  player.playlists.find( (playlist) => playlist.id === id);
+    playlist.songs.forEach((songId) =>{
+      duration += player.songs.find((song) => song.id === songId).duration
+  
+    })
+     return duration;
   }
