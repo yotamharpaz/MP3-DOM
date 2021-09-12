@@ -8,26 +8,17 @@
 
 function playSong(songId) {
     
+    
 }
 
 
-function durationFormat (secDuration) {
 
-    let seconds = secDuration % 60;
-    const fomatedSec = seconds.toString().length === 1 ? "0" + seconds : seconds;
-  
-    let minutes = Math.floor(secDuration / 60);
-    const fomatedMin = minutes.toString().length === 1 ? "0" + minutes : minutes;
-  
-    return (fomatedMin + ":" + fomatedSec);
-  }
 
 /**
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    image = createElement('img', [], [], {src : coverArt.jpg})
-    const children = [`Title: ${title}`, `Album: ${album}`, `Artist: ${artist}`, `Duration: ${durationFormat(duration)}`, image]
+    const children = [`Title: ${title}`, `Album: ${album}`, `Artist: ${artist}`, `Duration: ${durationFormat(duration)}`, coverArt]
     const classes = ['song']
     const attrs = { onclick: `playSong(${id})` }
     return createElement("div", children, classes, attrs)
@@ -38,8 +29,10 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  */
 function createPlaylistElement({ id, name, songs }) {
     const children = [`id: ${id}`, `name: ${name}`, `songs: ${songs}`]
-    const classes = [playlist]
+    const classes = []
     const attrs = {}
+    const ul = document.createElement('ul')
+
     return createElement("div", children, classes, attrs)
 }
 
@@ -63,7 +56,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
    element.append(children)
 
    // add classes to element
-    classes.forEach(c => element.classList.add(c));
+    classes.forEach(clls => element.classList.add(clls));
 
     // set the attrbutes to the elenment
     for(let key in attributes) {
@@ -73,12 +66,33 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     return element;
 }
 
-// You can write more code below this line
+
 const songsList = document.getElementById('songs');
-const playlistsList = document.getElementById('playlist');
+const playlistsList = document.getElementById('playlists');
 
 player.songs.forEach((song) => {
-    const songElemnt = createSongElement(song);
-
-    songsList.appendChild(songElemnt);
+    const songElment = createSongElement(song);
+    
+    songsList.appendChild(songElment);
+    const image = createElement('img')
+    image.setAttribute("src",song.coverArt)
+    songElment.append(image);
 })
+
+player.playlists.forEach((playlist) => {
+    const playlistElment = createPlaylistElement(playlist);
+
+    playlistsList.appendChild(playlistElment);
+})
+
+
+function durationFormat (secDuration) {
+
+    let seconds = secDuration % 60;
+    const fomatedSec = seconds.toString().length === 1 ? "0" + seconds : seconds;
+  
+    let minutes = Math.floor(secDuration / 60);
+    const fomatedMin = minutes.toString().length === 1 ? "0" + minutes : minutes;
+  
+    return (fomatedMin + ":" + fomatedSec);
+  }
