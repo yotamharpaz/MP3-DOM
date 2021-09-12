@@ -26,7 +26,7 @@ function durationFormat (secDuration) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const image = createElement('img', [], [], {src: coverArt})
+    image = createElement('img', [], [], {src : coverArt.jpg})
     const children = [`Title: ${title}`, `Album: ${album}`, `Artist: ${artist}`, `Duration: ${durationFormat(duration)}`, image]
     const classes = ['song']
     const attrs = { onclick: `playSong(${id})` }
@@ -37,8 +37,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
+    const children = [`id: ${id}`, `name: ${name}`, `songs: ${songs}`]
+    const classes = [playlist]
     const attrs = {}
     return createElement("div", children, classes, attrs)
 }
@@ -59,14 +59,14 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
    const element = document.createElement(tagName);
 
    // append children to elemnet
-   children.forEach((child) => element.appendChild(child));
+   //children.forEach((child) => element.appendChild(child));
    element.append(children)
 
    // add classes to element
     classes.forEach(c => element.classList.add(c));
 
     // set the attrbutes to the elenment
-    for(var key in attributes) {
+    for(let key in attributes) {
         element.setAttribute(key, attributes[key]);
     }
 
