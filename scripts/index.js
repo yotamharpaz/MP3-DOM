@@ -57,14 +57,12 @@ function createPlaylistElement({ id, name, songs }) {
 function createElement(tagName, children = [], classes = [], attributes = {}) {
    const element = document.createElement(tagName);
 
-   // append children to elemnet
-   //children.forEach((child) => element.appendChild(child));
+
    element.append(children)
 
-   // add classes to element
+
     classes.forEach(clls => element.classList.add(clls));
 
-    // set the attrbutes to the elenment
     for(let key in attributes) {
         element.setAttribute(key, attributes[key]);
     }
