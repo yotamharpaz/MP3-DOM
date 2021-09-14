@@ -13,11 +13,27 @@
     background-color:cornflowerblue;
     text-align: center;
     margin: 1px,1px,1px,1px;
+    font-size: medium;
 }
 .image{
     border-radius: 50%;
     size: 10px;
 }
-.b{
+.played{
     background-color: darkgreen;
+    transform: rotate(360deg);
 }
+
+.song {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-image-width: auto;
+    border-color: darkgrey;
+    border-style: inset;
+    margin: 3px,3px,3px,3px;
+}
+img {
+    border-radius: 50%;
+    width: 150px;
+  }
