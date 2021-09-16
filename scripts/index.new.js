@@ -79,8 +79,23 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} eventListeners - the event listeners on the element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
-    // Your code here
-}
+    const element = document.createElement(tagName);
+
+     children.forEach(child => element.append(child));
+
+      classes.forEach(clls => element.classList.add(clls));
+
+      for(let key in attributes) {
+          element.setAttribute(key, attributes[key]);
+
+          for (const [key, value] of Object.entries(eventListeners)) {
+            console.log(`${key}: ${value}`);
+            element.addEventListener(key, value)
+         }
+          return element;
+        }
+        }
+     
 
 /**
  * Inserts all songs in the player as DOM elements into the songs list.

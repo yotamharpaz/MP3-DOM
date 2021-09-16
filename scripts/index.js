@@ -4,12 +4,23 @@
  *
  * @param {String} songId - the ID of the song to play
  */
-
+//  songs.onmouseover = function(event) {
+//     let target = event.target;
+//     target.style.background = 'pink';
+//   };
+  
+//   songs.onmouseout = function(event) {
+//     let target = event.target;
+//     target.style.background = '';
+//   };
 
  function playSong(songId) {
-    let playedSong = document.getElementsByClassName("played")
-    if( playedSong.length > 0) playedSong[0].className = "notPlayed";
     document.getElementById(songId).className = "played";
+    let playedSong = document.getElementsByClassName("played")
+    if( playedSong > 0 ) {playedSong.style.backGroundColor = "blue"}
+    
+    
+    
 
 }
 

@@ -1,13 +1,19 @@
 #songs{
     background-color: brown;
     text-align: center;
-    margin: 1px,1px,1px,1px;
+    margin: 5px;
     border-image: auto;
     border-image-width: auto;
+    margin: auto;
+    font-family: sans-serif;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 .song{
     margin: auto;
     font-family: sans-serif;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 #playlists{
     background-color:cornflowerblue;
@@ -31,9 +37,19 @@
     border-image-width: auto;
     border-color: darkgrey;
     border-style: inset;
-    margin: 3px,3px,3px,3px;
+    margin: auto;
 }
+
+.song:hover {
+    border-color: green;
+}
+
+
+
 img {
     border-radius: 50%;
     width: 150px;
   }
+.notPlayed{
+    background-color: palevioletred;
+}
