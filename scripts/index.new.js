@@ -1,3 +1,32 @@
+
+
+
+
+
+
+
+
+function playlistDuration(id) {
+    let duration = 0
+    const playlist =  player.playlists.find( (playlist) => playlist.id === id);
+    playlist.songs.forEach((songId) =>{
+      duration += player.songs.find((song) => song.id === songId).duration
+  
+    })
+     return duration;
+  }
+
+  function durationFormat (secDuration) {
+
+    let seconds = secDuration % 60;
+    const fomatedSec = seconds.toString().length === 1 ? "0" + seconds : seconds;
+  
+    let minutes = Math.floor(secDuration / 60);
+    const fomatedMin = minutes.toString().length === 1 ? "0" + minutes : minutes;
+  
+    return (fomatedMin + ":" + fomatedSec);
+  }
+
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
@@ -46,23 +75,40 @@ function handleAddSongEvent(event) {
 /**
  * Creates a song DOM element based on a song object.
  */
-function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = []
-    const classes = []
+
+ function createSongElement({ id, title, album, artist, duration, coverArt }) {
+    const titleEl = createElement('span',[`title ; ${title}`])
+    const albumEl = createElement('span',[`Album: ${album}`])
+    const artistEl = createElement('span',[`Artist: ${artist}`])
+    const durEl = createElement('span',[`Duration: ${durationFormat(duration)}`])
+
+    const image = createElement('img', [], [], {src: coverArt})
+    
+    const detailContainer = createElement('div',[durEl,artistEl,albumEl,titleEl] , ['detail'])
+   
+    const classes = ['song']
     const attrs = {}
-    const eventListeners = {}
-    return createElement("div", children, classes, attrs, eventListeners)
+    const eventListeners = { }
+    return createElement("div",id,[detailContainer,image],classes,attrs, eventListeners)
 }
+
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
+ 
 function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
+    const idEl = createElement('span',[`id: ${id}`])
+    const nameEl = createElement('span',[`name: ${name}`])
+    const songsEl = createElement('span',[`songs: ${songs}`])
+    const durationEL = createElement('span',[`duration:${durationFormat (playlistDuration(id))} `])
+    const detailContainer = createElement('div',[idEl,nameEl,songsEl,durationEL] , ['detail'])
+    let obj = createElement("div",[detailContainer]);
+    obj.id=id;
+    const classes = ["playList"]
     const attrs = {}
     const eventListeners = {}
-    return createElement("div", children, classes, attrs, eventListeners)
+    return createElement("div", [detailContainer], classes, attrs, eventListeners)
 }
 
 /**
@@ -101,16 +147,25 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
  * Inserts all songs in the player as DOM elements into the songs list.
  */
 function generateSongs() {
-    // Your code here
+    const songsList = document.getElementById('songs');
+    player.songs.forEach((song) => {
+        const songElment = createSongElement(song);
+        
+        songsList.appendChild(songElment);
+    })
 }
 
 /**
  * Inserts all playlists in the player as DOM elements into the playlists list.
  */
 function generatePlaylists() {
-    // Your code here
+    const playlistsList = document.getElementById('playlists');
+    player.playlists.forEach((playlist) => {
+        const playlistElment = createPlaylistElement(playlist);
+    
+        playlistsList.appendChild(playlistElment);
+    })
 }
-
 // Creating the page structure
 generateSongs()
 generatePlaylists()
