@@ -43,14 +43,31 @@ function playSong(songId) {
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-    // Your code here
+    throwIfNoSong(songId)
+    player.songs = player.songs.filter( (song) => song.id !== songId);
+    player.playlists = player.playlists.map((playlist) => {
+      return {
+        ...playlist,
+        songs: playlist.songs.filter((song) => song !== songId)
+      };
+  
+    });
 }
 
 /**
  * Adds a song to the player, and updates the DOM to match.
  */
 function addSong({ title, album, artist, duration, coverArt }) {
-    // Your code here
+    let maxId = 0;
+   player.songs.forEach((song) => {
+    maxId = Math.max(song.id,maxId);     
+   })
+
+  const newId = id ?? maxId + 1;
+  player.songs = [
+    ...player.songs,
+    createSongElement({ newId, title, album, artist, duration, coverArt })
+  ];
 }
 
 /**
@@ -69,7 +86,21 @@ function handleSongClickEvent(event) {
  * @param {MouseEvent} event - the click event
  */
 function handleAddSongEvent(event) {
-    // Your code here
+    debugger
+   
+   if(event.target.id==="add-button"){
+    let [title] = document.getElementsByName("title");
+    let [album] = document.getElementsByName("album");
+    let [artist] = document.getElementsByName("artist");
+    let [duration] = document.getElementsByName("duration");
+    let [coverArt] = document.getElementsByName("cover-art");
+        const newSong= createSongElement({id: title.value, title: title.value,album: album.value,artist: artist.value,duration: duration.value,coverArt: coverArt.value })
+        const songsList = document.getElementById('songs');
+        songsList.appendChild(newSong)
+   }
+       
+
+      
 }
 
 /**
@@ -82,17 +113,41 @@ function handleAddSongEvent(event) {
     const artistEl = createElement('span',[`Artist: ${artist}`])
     const durEl = createElement('span',[`Duration: ${durationFormat(duration)}`])
 
+    const playButton = document.createElement("BUTTON");
+    playButton.classList.add("element")
+    playButton.innerText = "▶";
+    const removeButton = document.createElement("BUTTON");
+    removeButton.classList.add("element")
+    removeButton.innerText = "🚮";
+    
+
     const image = createElement('img', [], [], {src: coverArt})
     
-    const detailContainer = createElement('div',[durEl,artistEl,albumEl,titleEl] , ['detail'])
+    const detailContainer = createElement('div',[durEl,artistEl,albumEl,titleEl,playButton,removeButton] , ['detail'])
    
     const classes = ['song']
     const attrs = {}
-    const eventListeners = { }
-    return createElement("div",id,[detailContainer,image],classes,attrs, eventListeners)
+    const eventListeners = {}
+    let obj = createElement("div",[detailContainer,image],classes,attrs, eventListeners);
+    obj.id=id;
+    return obj
+   
 }
+// function createSongElement({ id, title, album, artist, duration, coverArt }) {
+//     const titleEl = createElement('span',[`title ; ${title}`])
+//     const albumEl = createElement('span',[`Album: ${album}`])
+//     const artistEl = createElement('span',[`Artist: ${artist}`])
+//     const durEl = createElement('span',[`Duration: ${durationFormat(duration)}`])
 
-
+//     const image = createElement('img', [], [], {src: coverArt})
+    
+//     const detailContainer = createElement('div',[durEl,artistEl,albumEl,titleEl] , ['detail'])
+//     const classes = ['song']
+//     const attrs = { onclick: `playSong(${id})`}
+//     let obj = createElement("div",[detailContainer,image],classes,attrs);
+//     obj.id=id;
+//     return obj
+// }
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
@@ -127,20 +182,20 @@ function createPlaylistElement({ id, name, songs }) {
 function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
     const element = document.createElement(tagName);
 
-     children.forEach(child => element.append(child));
+    children.forEach(child => element.append(child));
 
-      classes.forEach(clls => element.classList.add(clls));
+    classes.forEach(clls => element.classList.add(clls));
 
-      for(let key in attributes) {
+    for(let key in attributes) {
           element.setAttribute(key, attributes[key]);
 
           for (const [key, value] of Object.entries(eventListeners)) {
             console.log(`${key}: ${value}`);
             element.addEventListener(key, value)
          }
-          return element;
         }
-        }
+     return element;
+}
      
 
 /**
