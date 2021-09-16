@@ -34,8 +34,15 @@ function playlistDuration(id) {
  * @param {Number} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    document.getElementById(songId).className = "played";
+    let playedSong = document.getElementsByClassName("played")
+    if( playedSong > 0 ) {playedSong.style.backGroundColor = "blue"}
+    
+    
+    
+
 }
+
 
 /**
  * Removes a song from the player, and updates the DOM to match.
@@ -43,7 +50,8 @@ function playSong(songId) {
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-    throwIfNoSong(songId)
+    song = document.getElementById(songId)
+        song.remove()
     player.songs = player.songs.filter( (song) => song.id !== songId);
     player.playlists = player.playlists.map((playlist) => {
       return {
@@ -52,6 +60,7 @@ function removeSong(songId) {
       };
   
     });
+    
 }
 
 /**
@@ -77,7 +86,13 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+    if(event.target.id === "playButton"){
+        let songId = event.target.closest(".song").id;
+        playSong(songId)
+    }else if((event.target.id==="removeButton")){
+        let songId = event.target.closest(".song").id;
+        removeSong(songId)
+    }
 }
 
 /**
@@ -86,8 +101,7 @@ function handleSongClickEvent(event) {
  * @param {MouseEvent} event - the click event
  */
 function handleAddSongEvent(event) {
-    debugger
-   
+
    if(event.target.id==="add-button"){
     let [title] = document.getElementsByName("title");
     let [album] = document.getElementsByName("album");
@@ -116,9 +130,11 @@ function handleAddSongEvent(event) {
     const playButton = document.createElement("BUTTON");
     playButton.classList.add("element")
     playButton.innerText = "▶";
+    playButton.id = "playButton"
     const removeButton = document.createElement("BUTTON");
     removeButton.classList.add("element")
     removeButton.innerText = "🚮";
+    removeButton.id = "removeButton"
     
 
     const image = createElement('img', [], [], {src: coverArt})
@@ -227,3 +243,4 @@ generatePlaylists()
 
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
+document.getElementById("songs").addEventListener("click",handleSongClickEvent)
