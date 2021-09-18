@@ -4,8 +4,16 @@
 
 
 
-
-
+function playListLength(id){
+    const player = document.getElementById("player")
+    const newplayList = player.playlists.find(element => element.id=== id);
+    if(!newplayList )
+    return 0
+  
+    return newplayList.length
+    
+}
+    
 function playlistDuration(id) {
     let duration = 0
     const playlist =  player.playlists.find( (playlist) => playlist.id === id);
@@ -171,7 +179,7 @@ function handleAddSongEvent(event) {
 function createPlaylistElement({ id, name, songs }) {
     const idEl = createElement('span',[`id: ${id}`])
     const nameEl = createElement('span',[`name: ${name}`])
-    const songsEl = createElement('span',[`songs: ${songs}`])
+    const songsEl = createElement('span',[`songs: ${songs.length}}`])
     const durationEL = createElement('span',[`duration:${durationFormat (playlistDuration(id))} `])
     const detailContainer = createElement('div',[idEl,nameEl,songsEl,durationEL] , ['detail'])
     let obj = createElement("div",[detailContainer]);
