@@ -28,8 +28,6 @@ function playlistDuration(id) {
  */
 function playSong(songId) {
     document.getElementById(songId).className = "played";
-    let playedSong = document.getElementsByClassName("played")
-    if(playedSong) {playedSong.classList.remove("blue")}
 }
 
 
