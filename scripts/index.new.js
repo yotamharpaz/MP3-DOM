@@ -1,18 +1,3 @@
-
-
-
-
-
-
-function playListLength(id){
-    const player = document.getElementById("player")
-    const newplayList = player.playlists.find(element => element.id=== id);
-    if(!newplayList )
-    return 0
-  
-    return newplayList.length
-    
-}
     
 function playlistDuration(id) {
     let duration = 0
@@ -227,6 +212,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
  */
 function generateSongs() {
     const songsList = document.getElementById('songs');
+    player.songs.sort((a,b) => a.title.localeCompare(b.title)) 
     player.songs.forEach((song) => {
         const songElment = createSongElement(song);
         
