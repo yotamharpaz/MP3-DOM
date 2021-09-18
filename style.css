@@ -1,5 +1,6 @@
+
 #songs{
-    background-color: brown;
+    background-color:gray;
     text-align: center;
     margin: 5px;
     border-image: auto;
@@ -16,32 +17,63 @@
     flex-wrap: nowrap;
 }
 #playlists{
-    background-color:cornflowerblue;
+    background-image:url("https://previews.123rf.com/images/mejn/mejn1903/mejn190300118/124290740-retro-music-background-with-vinyl-records-vector-lp-discs.jpg");
     text-align: center;
-    margin: 1px,1px,1px,1px;
-    font-size: medium;
+    margin: 10px;
+    font-size:25px ;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-image-width: auto;
+    border-color: darkgrey;
+    border-style: inset;
+    margin: 100px;
+    gap: 15px;
+    color:lightgoldenrodyellow;
+    
+   
 }
 .image{
     border-radius: 50%;
-    size: 10px;
+    size: 3x;
 }
-.played{
+.played
+{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-image-width: auto;
+    border-color: darkgrey;
+    border-style: inset;
+    margin: 100px;
+    font-size: 15px;
+    gap: inherit;
     background-color: darkgreen;
     transform: rotate(360deg);
 }
 
 .song {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
     border-image-width: auto;
     border-color: darkgrey;
     border-style: inset;
-    margin: auto;
+    margin: 100px;
+    font-size: 20px;
+    gap: inherit;
+   
 }
 
+
 .song:hover {
-    border-color: green;
+    border-color:navajowhite;
 }
 
 
@@ -49,7 +81,40 @@
 img {
     border-radius: 50%;
     width: 150px;
+    margin: 10px;
   }
 .notPlayed{
     background-color: palevioletred;
+}
+button{
+    position: relative;
+    background: #fff; 
+    border: none;
+    outline:none;
+    height: 50px;
+    width: 50px;
+    font-size: 20px; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, .3);
+    cursor:pointer;
+      -moz-border-radius: 5em;
+      -webkit-border-radius: 5em;
+      border-radius: 5em;
+      margin: 15px;
+    
+  }
+  h2{
+      font-size: 30px;
+  }
+  .detail{
+    display: flex;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    gap: 15px;
+    
+  }
+body{
+    background-image: url("https://images.theconversation.com/files/78216/original/image-20150416-5628-6s1t8.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
+}
+h1{
+    color: lightgoldenrodyellow;
+    background-color:black ;
 }

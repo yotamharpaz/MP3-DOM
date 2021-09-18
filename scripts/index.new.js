@@ -29,11 +29,7 @@ function playlistDuration(id) {
 function playSong(songId) {
     document.getElementById(songId).className = "played";
     let playedSong = document.getElementsByClassName("played")
-    if( playedSong > 0 ) {playedSong.style.backGroundColor = "blue"}
-    
-    
-    
-
+    if(playedSong) {playedSong.classList.remove("blue")}
 }
 
 
@@ -115,6 +111,7 @@ function handleAddSongEvent(event) {
  */
 
  function createSongElement({ id, title, album, artist, duration, coverArt }) {
+
     const titleEl = createElement('span',[`title ; ${title}`])
     const albumEl = createElement('span',[`Album: ${album}`])
     const artistEl = createElement('span',[`Artist: ${artist}`])
@@ -137,9 +134,9 @@ function handleAddSongEvent(event) {
     const classes = ['song']
     const attrs = {}
     const eventListeners = {}
-    let obj = createElement("div",[detailContainer,image],classes,attrs, eventListeners);
-    obj.id=id;
-    return obj
+    let songObject = createElement("div",[detailContainer,image],classes,attrs, eventListeners);
+    songObject.id=id;
+    return songObject
    
 }
 // function createSongElement({ id, title, album, artist, duration, coverArt }) {
@@ -164,8 +161,12 @@ function handleAddSongEvent(event) {
 function createPlaylistElement({ id, name, songs }) {
     const idEl = createElement('span',[`id: ${id}`])
     const nameEl = createElement('span',[`name: ${name}`])
-    const songsEl = createElement('span',[`songs: ${songs.length}}`])
+    const songsEl = createElement('span',[`songs: ${songs.length}`])
     const durationEL = createElement('span',[`duration:${durationFormat (playlistDuration(id))} `])
+    const playButton = document.createElement("BUTTON");
+    playButton.classList.add("element")
+    playButton.innerText = "▶";
+    playButton.id = "playButton"
     const detailContainer = createElement('div',[idEl,nameEl,songsEl,durationEL] , ['detail'])
     let obj = createElement("div",[detailContainer]);
     obj.id=id;
@@ -238,3 +239,5 @@ generatePlaylists()
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
 document.getElementById("songs").addEventListener("click",handleSongClickEvent)
+
+
