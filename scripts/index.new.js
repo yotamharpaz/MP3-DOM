@@ -224,9 +224,9 @@ function generateSongs() {
  */
 function generatePlaylists() {
     const playlistsList = document.getElementById('playlists');
+    player.playlists.sort((a,b) => a.name.localeCompare(b.name));
     player.playlists.forEach((playlist) => {
         const playlistElment = createPlaylistElement(playlist);
-    
         playlistsList.appendChild(playlistElment);
     })
 }
